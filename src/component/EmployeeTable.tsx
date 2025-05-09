@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { addEmployees, deleteEmployee, fetchEmployees } from "../api/employeeApi";
+import { addEmployees, deleteEmployee, fetchEmployees, updateEmployeeRecord } from "../api/employeeApi";
 import EmployeeForm from "./EmployeeForm";
 
 type Employee = {
@@ -58,7 +58,7 @@ const EmployeeTable = () => {
   };
 
   const handleEdit = (id: number) => {
-    // TODO: Open edit dialog
+    setOpenForm(true)
   };
 
   const handleDelete = async (id: number) => {
@@ -72,10 +72,9 @@ const EmployeeTable = () => {
 
   const handleSave = async (employee: { firstName: string; lastName: string; email: string; department: string }) => {
     if (editingEmployee) {
+      await updateEmployeeRecord(employee);
     } else {
-      const res = await addEmployees(employee);
-      console.log(res)
-      setOpenForm(false);
+      await addEmployees(employee);
     }
     setPageRefresh(true);
     setOpenForm(false); // Close the form dialog after save

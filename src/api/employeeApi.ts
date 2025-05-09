@@ -8,8 +8,12 @@ export const fetchEmployees = async () => {
 };
 
 export const addEmployees = async (employee: { firstName: string; lastName: string; email: string; department: string; }) => {
-    console.log("we are here")
     const response = await axios.post(API_URL, employee);
+    return response.data;
+};
+
+export const updateEmployeeRecord = async (employee: { firstName: string; lastName: string; email: string; department: string; }) => {
+    const response = await axios.put(API_URL, employee);
     return response.data;
 };
 
